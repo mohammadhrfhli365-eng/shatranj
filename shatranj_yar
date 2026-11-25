@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شطرنج‌یار | بازی و آموزش</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap');
+:root{--bg:#10151b;--panel:#1b242e;--gold:#e6b85c;--muted:#aab5c1;--light:#f0d9b5;--dark:#9b6b48}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#283746,#10151b 65%);color:#f7f4ed;font-family:Vazirmatn,Tahoma,sans-serif;min-height:100vh}
+header{padding:22px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ffffff18}h1{margin:0;font-size:25px;color:var(--gold)}header small{color:var(--muted)}
+main{max-width:1100px;margin:28px auto;padding:0 16px}.screen{display:none}.screen.active{display:block}.panel{background:#1b242eeb;border:1px solid #ffffff18;border-radius:22px;padding:22px;box-shadow:0 18px 50px #0005}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px}.menu-card{background:linear-gradient(145deg,#293846,#1a242e);border:1px solid #ffffff20;border-radius:18px;padding:24px;text-align:center;cursor:pointer;transition:.2s}.menu-card:hover{transform:translateY(-4px);border-color:var(--gold)}.menu-card .ico{font-size:42px}.menu-card h2{margin:8px 0;color:var(--gold)}p{color:#d5dce3;line-height:1.9}.btn{border:0;border-radius:12px;padding:11px 18px;background:var(--gold);color:#1a1b1d;font:600 15px Vazirmatn;cursor:pointer}.btn.secondary{background:#344454;color:white}.btn:disabled{opacity:.4;cursor:not-allowed}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.game-layout{display:grid;grid-template-columns:minmax(280px,620px) minmax(220px,1fr);gap:20px;align-items:start}.board{display:grid;grid-template-columns:repeat(8,1fr);width:100%;aspect-ratio:1;border:7px solid #3a2a20;border-radius:8px;overflow:hidden;direction:ltr;box-shadow:0 12px 35px #0007}.sq{display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;aspect-ratio:1;font-family:"Segoe UI Symbol",serif;font-size:clamp(27px,5.3vw,58px);user-select:none}.sq.light{background:var(--light)}.sq.dark{background:var(--dark)}.sq.selected{box-shadow:inset 0 0 0 5px #facc15}.sq.target:after{content:"";width:22%;height:22%;border-radius:50%;background:#16653499;position:absolute}.sq.capture:after{content:"";position:absolute;inset:4px;border:5px solid #16653488;border-radius:50%}.whitepiece{color:#fffdf4;text-shadow:1px 2px 2px #222,-1px -1px 1px #222}.blackpiece{color:#161616;text-shadow:0 1px 1px #fff8}.sidebox{background:#111a22;border-radius:16px;padding:16px}.status{padding:12px;border-radius:12px;background:#293846;margin-bottom:12px}.piece-guide{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.piece-guide div{background:#263440;padding:8px;border-radius:10px;font-size:13px}.piece-guide b{font-size:24px;vertical-align:middle;margin-left:6px}.choice{display:flex;gap:12px;margin:18px 0}.choice button{flex:1;padding:18px;border-radius:16px;border:2px solid #ffffff22;background:#263440;color:white;font:600 16px Vazirmatn;cursor:pointer}.choice button.chosen{border-color:var(--gold);background:#3a382e}.hint{color:var(--gold);font-weight:600}.lesson-list{padding-right:20px;line-height:2}.muted{color:var(--muted);font-size:13px}
+@media(max-width:760px){.game-layout{grid-template-columns:1fr}.board{max-width:620px;margin:auto}.sq{font-size:clamp(25px,9vw,52px)}}
+
+/* تم روشن سفید و مشکی */
+:root{--bg:#ffffff;--panel:#ffffff;--gold:#171717;--muted:#666666;--light:#f0d9b5;--dark:#9b6b48}
+body{background:#ffffff;color:#171717}
+header{background:#ffffff;border-bottom:1px solid #e5e5e5}
+h1, .menu-card h2, .hint{color:#171717}
+header small,.muted{color:#666666}
+.panel{background:#ffffff;border:1px solid #e5e5e5;box-shadow:0 12px 35px #00000012}
+.menu-card{background:#ffffff;border:1px solid #dddddd;box-shadow:0 5px 18px #0000000b}
+.menu-card:hover{border-color:#171717}
+p{color:#444444}
+.btn{background:#171717;color:#ffffff}
+.btn.secondary{background:#eeeeee;color:#171717;border:1px solid #dddddd}
+.sidebox{background:#f5f5f5;color:#171717}
+.status{background:#eeeeee;color:#171717}
+.piece-guide div{background:#f1f1f1;color:#222222}
+.choice button{background:#ffffff;color:#171717;border:2px solid #dddddd}
+.choice button.chosen{border-color:#171717;background:#eeeeee}
+
+</style>
+</head>
+<body>
+<header><div><h1>♟ شطرنج‌یار</h1><small>بازی کن، یاد بگیر، قوی‌تر شو</small></div><button class="btn secondary" onclick="show('home')">صفحه اصلی</button></header>
+<main>
+<section id="home" class="screen active panel">
+ <h2>به دنیای شطرنج خوش آمدی!</h2><p>یک رنگ انتخاب کن، با ربات بازی کن یا قدم‌به‌قدم حرکت مهره‌ها را یاد بگیر.</p><p id="engineState" class="muted">در حال آماده‌سازی موتور شطرنج...</p>
+ <div class="menu-grid">
+  <div class="menu-card" onclick="show('color')"><div class="ico">🤖♟</div><h2>بازی با ربات</h2><p>با مهره‌های سفید یا سیاه بازی کن.</p></div>
+  <div class="menu-card" onclick="show('lessons')"><div class="ico">📚</div><h2>آموزش شطرنج</h2><p>حرکت و قدرت تمام مهره‌ها را یاد بگیر.</p></div>
+  <div class="menu-card" onclick="show('pieces')"><div class="ico">♜♞</div><h2>راهنمای مهره‌ها</h2><p>نشانه و روش حرکت هر مهره را ببین.</p></div>
+ </div>
+</section>
+<section id="color" class="screen panel"><h2>با کدام ادمک بازی می‌کنی؟</h2><p>رنگ مهره‌های خودت را انتخاب کن:</p><div class="choice"><button onclick="startGame('w')">♔ سفید<br><small>شروع‌کننده بازی</small></button><button onclick="startGame('b')">♚ سیاه<br><small>ربات اول بازی می‌کند</small></button></div><button class="btn secondary" onclick="show('home')">بازگشت</button></section>
+<section id="game" class="screen">
+ <div class="topline"><h2>بازی با ربات</h2><div><button class="btn secondary" onclick="resetGame()">شروع دوباره</button> <button class="btn secondary" onclick="show('home')">منو</button></div></div>
+ <div class="panel" style="margin-bottom:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center">
+  <div><div class="muted">مهره‌های گرفته‌شده سفید</div><div id="capturedWhite" style="font-size:25px;min-height:36px">—</div></div>
+  <div><div class="muted">زمان بازی</div><div id="clock" style="font-size:27px;font-weight:800;color:var(--gold)">05:00</div></div>
+  <div><div class="muted">مهره‌های گرفته‌شده سیاه</div><div id="capturedBlack" style="font-size:25px;min-height:36px">—</div></div>
+ </div>
+ <div class="panel game-layout"><div><div id="board" class="board"></div></div><aside class="sidebox"><div id="status" class="status">نوبت سفید</div><p id="turninfo">تو: سفید</p><p class="muted">روی مهره خودت بزن، سپس خانه مقصد را انتخاب کن.</p><div class="piece-guide" id="miniGuide"></div><p class="muted">حرکت‌ها در این صفحه نمایش داده نمی‌شوند.</p></aside></div>
+</section>
+<section id="lessons" class="screen panel"><div class="topline"><h2>آموزش شطرنج</h2><button class="btn secondary" onclick="show('home')">بازگشت</button></div><p>در شطرنج هر بازیکن ۱۶ مهره دارد. هدف، مات کردن شاه حریف است.</p><ol class="lesson-list"><li><b>پیاده ♟:</b> یک خانه رو به جلو می‌رود؛ در حرکت اول می‌تواند دو خانه برود و مهره حریف را مورب می‌زند.</li><li><b>رخ ♜:</b> مستقیم، افقی یا عمودی حرکت می‌کند.</li><li><b>فیل ♝:</b> فقط مورب حرکت می‌کند.</li><li><b>اسب ♞:</b> به شکل حرف L حرکت می‌کند و از روی مهره‌ها می‌پرد.</li><li><b>وزیر ♛:</b> مستقیم و مورب حرکت می‌کند؛ قوی‌ترین مهره است.</li><li><b>شاه ♚:</b> یک خانه در هر جهت حرکت می‌کند؛ باید از کیش و مات دور بماند.</li></ol><p class="hint">نکته: سفید همیشه اولین حرکت را انجام می‌دهد.</p></section>
+<section id="pieces" class="screen panel"><div class="topline"><h2>نشانه‌های مهره‌ها</h2><button class="btn secondary" onclick="show('home')">بازگشت</button></div><div class="piece-guide" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))"><div><b>♔ ♚</b> شاه — حرکت یک خانه</div><div><b>♕ ♛</b> وزیر — همه جهت‌ها</div><div><b>♖ ♜</b> رخ — افقی و عمودی</div><div><b>♗ ♝</b> فیل — مورب</div><div><b>♘ ♞</b> اسب — حرکت L شکل</div><div><b>♙ ♟</b> پیاده — رو به جلو</div></div><p>مهره‌های روشن برای سفید و مهره‌های تیره برای سیاه هستند. در صفحه بازی، نشانه تمام مهره‌ها همیشه دیده می‌شود.</p></section>
+</main>
+<script>
+(function loadChessLib(){
+ const sources=[
+  'https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js',
+  'https://cdn.jsdelivr.net/npm/chess.js@0.10.3/chess.min.js',
+  'https://unpkg.com/chess.js@0.10.3/chess.min.js'
+ ];
+ let i=0;
+ function next(){
+  if(i>=sources.length){window.chessLibFailed=true;return;}
+  const sc=document.createElement('script');sc.src=sources[i++];sc.onload=()=>{window.chessLibReady=true;};
+  sc.onerror=()=>{sc.remove();next();};document.head.appendChild(sc);
+ }
+ next();
+})();
+</script>
+<script>
+const glyph={wk:'♔',wq:'♕',wr:'♖',wb:'♗',wn:'♘',wp:'♙',bk:'♚',bq:'♛',br:'♜',bb:'♝',bn:'♞',bp:'♟'};
+const names={k:'شاه',q:'وزیر',r:'رخ',b:'فیل',n:'اسب',p:'پیاده'};
+let game=null,human='w',selected=null,legalTargets=[];
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');if(id!=='game')clearInterval(clockInterval)}
+setInterval(()=>{const e=document.getElementById('engineState');if(e)e.textContent=typeof Chess!=='undefined'?'موتور شطرنج آماده است ✓':'در حال اتصال به موتور شطرنج...';},500);
+let clockInterval=null,remaining=300,clockStarted=false;
+function drawClock(){
+ const el=document.getElementById('clock');if(!el)return;
+ const mm=String(Math.floor(remaining/60)).padStart(2,'0'),ss=String(remaining%60).padStart(2,'0');
+ el.textContent=mm+':'+ss;
+}
+function startClock(){
+ clearInterval(clockInterval);remaining=300;clockStarted=true;drawClock();
+ clockInterval=setInterval(()=>{
+  if(!game||game.game_over()){clearInterval(clockInterval);return;}
+  remaining=Math.max(0,remaining-1);drawClock();
+  if(remaining===0){clearInterval(clockInterval);document.getElementById('status').textContent='⏰ زمان ۵ دقیقه‌ای تمام شد!';game=null;}
+ },1000);
+}
+function startGame(color){if(typeof Chess==='undefined'){alert('موتور شطرنج هنوز بارگذاری نشده؛ چند ثانیه صبر کن و دوباره بزن.');return;}human=color;robotThinking=false;game=new Chess();selected=null;startClock();startClock();show('game');document.getElementById('turninfo').textContent='تو: '+(human==='w'?'سفید':'سیاه');render();if(human==='b')setTimeout(robotMove,450)}
+function resetGame(){if(!game)return;robotThinking=false;game=new Chess();selected=null;startClock();render();if(human==='b')setTimeout(robotMove,450)}
+function render(){
+ const board=document.getElementById('board');board.innerHTML='';const rows=human==='w'?'abcdefgh':'hgfedcba';const ranks=human==='w'?'87654321':'12345678';const targets=legalTargets;
+ for(let ri=0;ri<8;ri++)for(let fi=0;fi<8;fi++){let sq=rows[fi]+ranks[ri],piece=game.get(sq),el=document.createElement('div');el.className='sq '+(((ri+fi)%2===0)?'light':'dark');if(selected===sq)el.classList.add('selected');if(targets.includes(sq))el.classList.add(piece?'capture':'target');if(piece){el.textContent=glyph[piece.color+piece.type];el.classList.add(piece.color==='w'?'whitepiece':'blackpiece');el.title=names[piece.type]+' '+(piece.color==='w'?'سفید':'سیاه')}el.onclick=()=>tap(sq);board.appendChild(el)}
+ document.getElementById('status').textContent=game.in_checkmate()?'کیش و مات! '+(game.turn()==='w'?'سیاه':'سفید')+' برنده شد.':game.in_draw()?'بازی مساوی شد.':(game.turn()==='w'?'نوبت سفید':'نوبت سیاه')+(game.in_check()?' — کیش!':'');
+ const hist=game.history({verbose:true});
+ const takenByWhite=[],takenByBlack=[];
+ hist.forEach(m=>{if(m.captured){const capturer=m.color;const sym=glyph[(capturer==='w'?'b':'w')+m.captured];(capturer==='w'?takenByWhite:takenByBlack).push(sym);}});
+ document.getElementById('capturedWhite').textContent=takenByWhite.join(' ')||'—';
+ document.getElementById('capturedBlack').textContent=takenByBlack.join(' ')||'—';
+ document.getElementById('miniGuide').innerHTML=Object.keys(names).map(k=>'<div><b>'+glyph['w'+k]+' '+glyph['b'+k]+'</b>'+names[k]+'</div>').join('');
+}
+function tap(sq){if(!game||game.game_over()||game.turn()!==human||robotThinking)return;let p=game.get(sq);if(selected){let m=game.move({from:selected,to:sq,promotion:'q'});if(m){selected=null;legalTargets=[];render();if(!game.game_over())setTimeout(robotMove,450);return}}
+ if(p&&p.color===human){selected=sq;legalTargets=game.moves({square:sq,verbose:true}).map(m=>m.to)}else{selected=null;legalTargets=[]}render()}
+let robotThinking=false;
+function robotMove(){
+ if(!game || game.game_over() || game.turn()===human || robotThinking) return;
+ robotThinking=true;
+ document.getElementById('status').textContent='🤖 ربات در حال انتخاب حرکت است...';
+ setTimeout(function(){
+  if(!game || game.game_over() || game.turn()===human){robotThinking=false;return;}
+  try{
+   const legalMoves=game.moves({verbose:true});
+   if(!legalMoves.length){render();robotThinking=false;return;}
+   // اولویت: مات فوری، سپس کیش، سپس گرفتن مهره؛ در غیر این صورت هر حرکت قانونی.
+   let chosen=null;
+   for(const m of legalMoves){
+    if(!m.san || !m.san.includes('#')) continue;
+    const test=game.move(m.san);
+    if(test && game.in_checkmate()){chosen=m;game.undo();break;}
+    if(test)game.undo();
+   }
+   if(!chosen){
+    const checks=legalMoves.filter(m=>m.san && m.san.includes('+'));
+    const captures=legalMoves.filter(m=>m.captured);
+    const pool=checks.length?checks:captures.length?captures:legalMoves;
+    chosen=pool[Math.floor(Math.random()*pool.length)];
+   }
+   // اجرای حرکت با نشانه SAN؛ اگر نشد، خانه مبدا و مقصد را امتحان می‌کند.
+   let played=game.move(chosen.san);
+   if(!played) played=game.move({from:chosen.from,to:chosen.to,promotion:'q'});
+   if(!played) throw new Error('No legal robot move could be applied');
+   selected=null;legalTargets=[];render();
+  }catch(err){
+   console.error(err);
+   // آخرین راه پشتیبان: اولین حرکت قانونی را اجرا کن.
+   try{
+    const fallback=game.moves({verbose:true});
+    if(fallback.length){
+     const m=fallback[0];
+     let result=game.move(m.san);
+     if(!result) result=game.move({from:m.from,to:m.to,promotion:'q'});
+     if(result){selected=null;legalTargets=[];render();}
+    }
+   }catch(e){console.error(e);}
+  }
+  robotThinking=false;
+ },500);
+}
+</script>
+</body></html>
