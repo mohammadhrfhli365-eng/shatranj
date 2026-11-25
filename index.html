@@ -51,7 +51,7 @@ p{color:#e0d5d0;line-height:1.85;font-size:14px;margin:9px 0}
 <header><div><h1>♟ شطرنج‌یار</h1><small>بازی کن، یاد بگیر، قوی‌تر شو</small></div><button class="btn secondary" onclick="show('home')">صفحه اصلی</button></header>
 <main>
 <section id="home" class="screen active panel">
- <h2>به دنیای شطرنج خوش آمدی!</h2><p>یک رنگ انتخاب کن، با ربات بازی کن یا قدم‌به‌قدم حرکت مهره‌ها را یاد بگیر.</p><p id="engineState" class="muted">در حال آماده‌سازی موتور شطرنج...</p>
+ <h2>به دنیای شطرنج خوش آمدی!</h2><p>یک رنگ انتخاب کن، با ربات بازی کن یا قدم‌به‌قدم حرکت مهره‌ها را یاد بگیر.</p>
  <div class="menu-grid">
   <div class="menu-card" onclick="show('color')"><div class="ico">🤖♟</div><h2>بازی با ربات</h2><p>با مهره‌های سفید یا سیاه بازی کن.</p></div>
   <div class="menu-card" onclick="show('lessons')"><div class="ico">📚</div><h2>آموزش شطرنج</h2><p>حرکت و قدرت تمام مهره‌ها را یاد بگیر.</p></div>
@@ -92,7 +92,7 @@ const glyph={wk:'♔',wq:'♕',wr:'♖',wb:'♗',wn:'♘',wp:'♙',bk:'♚',bq:'
 const names={k:'شاه',q:'وزیر',r:'رخ',b:'فیل',n:'اسب',p:'پیاده'};
 let game=null,human='w',selected=null,legalTargets=[];
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');if(id!=='game')clearInterval(clockInterval)}
-setInterval(()=>{const e=document.getElementById('engineState');if(e)e.textContent=typeof Chess!=='undefined'?'موتور شطرنج آماده است ✓':'در حال اتصال به موتور شطرنج...';},500);
+
 let clockInterval=null,remaining=300,clockStarted=false;
 function drawClock(){
  const el=document.getElementById('clock');if(!el)return;
