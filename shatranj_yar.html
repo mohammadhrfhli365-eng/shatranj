@@ -13,6 +13,22 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{min-height:100%;background:var(--bg)}
 body{margin:0;min-height:100vh;min-height:100dvh;background:radial-gradient(ellipse at 50% -15%,#493047 0%,#211b30 42%,#100f19 78%);color:#f8edda;font-family:Vazirmatn,Tahoma,sans-serif;overflow-x:hidden}
+body.local-mode{background:linear-gradient(180deg,#38b7df 0%,#83d8e7 24%,#c6edf0 39%,#f3dfae 53%,#d9b47a 100%);color:#26323a}
+body.local-mode:after{content:'';position:fixed;z-index:-1;left:-8%;right:-8%;top:31vh;height:18vh;border-radius:50%;background:repeating-linear-gradient(175deg,#ffffff44 0 2px,transparent 2px 13px);opacity:.55;pointer-events:none}
+body.local-mode:before{opacity:.18;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:22px 22px}
+body.local-mode header{background:#124f69ee;border-bottom:2px solid #f5d58a}
+body.local-mode header h1{color:#ffe6a5} body.local-mode header small{color:#e3f7ff}
+body.local-mode .panel,body.local-mode .sidebox{background:linear-gradient(145deg,#fff4d9ed,#e8c58eef);border:1px solid #fff8d8;color:#26323a;box-shadow:0 12px 32px #174d5b44}
+body.local-mode h2{color:#174f61} body.local-mode p,body.local-mode .muted{color:#36545b}
+body.local-mode .board-wrap{background:linear-gradient(135deg,#fff1bd,#b97943,#fff1bd);box-shadow:0 16px 35px #174d5b66}
+body.local-mode .status{background:#d7edf0;color:#164a59;border-right-color:#d39b45}
+body.local-mode .sq.light{background:#f3dba7} body.local-mode .sq.dark{background:#b8784b}
+body.local-mode .btn.secondary{background:#17566a;color:#fff2cf;border-color:#ffffff77}
+.player-strip{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0;padding:9px 13px;border-radius:14px;background:#14566d;color:#fff4d4;box-shadow:0 5px 14px #174d5b33}
+.player-strip.active-player{outline:3px solid #f3c76b}.player-strip .avatar{font-size:27px}.player-strip small{display:block;color:#d8f3f5;font-size:11px}
+.board-wrap{position:relative}.hand-cursor{position:absolute;z-index:4;font-size:clamp(32px,9vw,48px);pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.7);filter:drop-shadow(0 5px 4px #0006);transition:left .32s ease,top .32s ease,opacity .15s,transform .22s}
+.hand-cursor.show{opacity:1;transform:translate(-50%,-50%) scale(1)}.hand-cursor.grab{transform:translate(-50%,-50%) scale(.82) rotate(-18deg)}
+.local-hint{text-align:center;color:#174f61;font-weight:800;margin:8px 0 12px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.13;background-image:linear-gradient(135deg,transparent 46%,#e7b85b 47%,transparent 48%),linear-gradient(45deg,transparent 46%,#c83245 47%,transparent 48%);background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent 70%)}
 header{position:sticky;top:0;z-index:5;padding:12px max(16px,env(safe-area-inset-right)) 12px max(16px,env(safe-area-inset-left));display:flex;justify-content:space-between;align-items:center;gap:12px;background:#151321ed;border-bottom:1px solid #e7b85b55;backdrop-filter:blur(14px)}
 header h1{margin:0;color:var(--gold2);font-size:clamp(19px,5vw,26px);font-weight:900;letter-spacing:-.5px}header small{display:block;color:#d0b9a8;font-size:11px;margin-top:2px}
@@ -42,31 +58,85 @@ p{color:#e0d5d0;line-height:1.85;font-size:14px;margin:9px 0}
 #engineState{padding:8px 11px;background:#2b2638;border:1px solid #ffffff12;border-radius:10px;display:inline-block}
 #capturedWhite,#capturedBlack{font-size:22px!important;min-height:30px!important;overflow-wrap:anywhere}
 .game-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;text-align:center;margin-bottom:12px;padding:10px!important}.game-stats>div{min-width:0}.game-stats .muted{font-size:10px}.game-stats #clock{font-size:clamp(19px,6vw,26px)!important;font-weight:900;color:var(--gold2)!important}
+
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 2px;border-bottom:1px solid #ffffff18}.setting-row b{display:block;color:var(--gold2);font-size:14px}.setting-row small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.setting-row select{max-width:48%;min-width:120px;background:#30283b;color:#fff0d2;border:1px solid #a78b6a88;border-radius:10px;padding:9px;font:600 12px Vazirmatn}.setting-row input[type=checkbox]{width:22px;height:22px;accent-color:#d8a94e}.setting-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.setting-row:last-of-type{border-bottom:0}
+body.theme-beach{background:linear-gradient(180deg,#38b7df,#83d8e7 35%,#e9d2a0 72%,#c59a62);color:#25333b}body.theme-beach header{background:#124f69ee}body.theme-beach .panel,body.theme-beach .sidebox{background:linear-gradient(145deg,#fff4d9ed,#e8c58eef);color:#26323a}body.theme-beach h2,body.theme-beach .setting-row b{color:#174f61}body.theme-beach .setting-row small{color:#36545b}body.theme-beach .sq.light{background:#f3dba7}body.theme-beach .sq.dark{background:#b8784b}
+body.theme-dark{background:radial-gradient(ellipse at 50% -15%,#303846,#11151d 78%)}body.theme-dark .panel,body.theme-dark .sidebox{background:linear-gradient(145deg,#202a36,#141b25)}body.board-wood{--board-light:#e6c99a;--board-dark:#80502f}body.board-ocean{--board-light:#bce7e8;--board-dark:#287b91}
+.hand-cursor{transition-duration:var(--hand-speed,.32s)}
+
 @media(min-width:650px){main{margin-top:26px}.menu-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.menu-card{display:block;text-align:center;padding:22px 14px}.menu-card .ico{display:block;font-size:42px}.menu-card h2{margin:8px 0}.game-layout{grid-template-columns:minmax(0,1.5fr) minmax(210px,.8fr)}.piece-guide{grid-template-columns:repeat(2,minmax(0,1fr))}.sq{font-size:clamp(28px,5vw,56px)}}
 @media(max-width:360px){header{padding-inline:10px}.btn{padding:9px 11px;font-size:12px}.sq{font-size:clamp(23px,8.5vw,32px)}.panel{padding:13px}.piece-guide{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Warm walnut + brass visual identity, sampled from the supplied knight photo */
+:root{--bg:#24180f;--panel:#f3e5cb;--panel2:#e5c99f;--red:#805034;--red2:#4d2d1b;--gold:#c18a45;--gold2:#f0d39a;--jade:#6c827f;--muted:#786653;--board-light:#efd9ad;--board-dark:#87583a;--ink:#2d2118}
+html{background:#24180f}
+body{background:radial-gradient(ellipse at 50% -20%,#94704b 0%,#49301f 42%,#21160f 82%);color:#f7ead2}
+body:before{opacity:.07;background-image:linear-gradient(135deg,transparent 46%,#e5bd7c 47%,transparent 48%),linear-gradient(45deg,transparent 46%,#8d5b37 47%,transparent 48%)}
+header{background:#2b1b11ed;border-bottom:1px solid #d5a45e88}
+header h1{color:#f0d39a}header small{color:#d8c09d}
+main{max-width:980px}
+.panel,.sidebox{background:linear-gradient(145deg,#f5e9d3,#e7d0aa);border:1px solid #c69a60;color:#332419;box-shadow:0 18px 48px #10090466}
+h2{color:#69452c}p{color:#6d5742}
+.menu-screen{padding:0 0 22px;overflow:hidden;background:#f1e3c9;border:1px solid #c69a60}
+.menu-hero{height:clamp(240px,48vw,390px);position:relative;background-image:linear-gradient(0deg,#1c1209d9 0%,#1c120933 52%,#1c120911 100%),url('menu-knight.png');background-size:cover;background-position:center 48%;border-radius:20px 20px 0 0}
+.hero-shade{position:absolute;inset:auto 0 0;padding:28px 24px 24px;color:#fff0d4}
+.hero-kicker{font-size:10px;letter-spacing:4px;color:#e7c48a;font-weight:800}
+.hero-shade h2{font-size:clamp(32px,8vw,54px);color:#fff0d4;margin:6px 0 0;text-shadow:0 3px 15px #0009}
+.hero-shade p{color:#f4dfbd;margin:2px 0 0;font-size:14px}
+.menu-intro{padding:20px 20px 4px}.menu-intro h2{margin:0;font-size:22px}.menu-intro p{margin:4px 0;color:#80674c}
+.menu-grid{grid-template-columns:1fr;gap:10px;margin:14px 18px 0}
+.menu-card{min-height:78px;display:grid;grid-template-columns:48px 1fr 20px;grid-template-rows:auto;column-gap:12px;align-items:center;padding:13px 15px;text-align:right;background:linear-gradient(120deg,#fff8e9,#e9d4b1);border:1px solid #c6a477;border-radius:15px;box-shadow:0 4px 12px #69472b16}
+.menu-card:after{display:none}.menu-card .ico{grid-row:auto;font-size:30px;color:#765033;filter:none}.menu-card h2{font-size:16px;color:#59391f;margin:0 0 2px}.menu-card p{font-size:11px;color:#806b54;margin:0}.menu-card .card-arrow{color:#a9783f;font-size:22px}.menu-card.featured{background:linear-gradient(110deg,#5b3924,#815a37);border-color:#d6ad70}.menu-card.featured h2,.menu-card.featured .ico,.menu-card.featured .card-arrow{color:#f7dfb0}.menu-card.featured p{color:#ead3ad}
+.btn{background:linear-gradient(135deg,#d5a45e,#a66d37);border:1px solid #f2d39a;color:#2d1c10;box-shadow:0 5px 14px #38200f33}
+.btn.secondary{background:#5a3b27;color:#f6e4c2;border:1px solid #b78c5a}
+.choice button{background:linear-gradient(145deg,#fff4dd,#e4c89e);border:1px solid #b98b55;color:#57391f}.choice button small{color:#866747}
+.setting-row{border-bottom-color:#c7ad88}.setting-row b{color:#654329}.setting-row small{color:#846d53}.setting-row select{background:#fff5e3;color:#49311f;border-color:#b98c5a}.setting-row input[type=checkbox]{accent-color:#986538}
+.game-stats{display:flex;flex-direction:column;align-items:center;gap:0;margin:0 auto 10px!important;max-width:540px;padding:8px 12px!important;background:linear-gradient(120deg,#f7ebd5,#e6cda4);border:1px solid #c49a65;border-radius:14px}
+.timer-label{font-size:11px;color:#7d6144}.game-stats #clock{font-size:27px;font-weight:900;color:#6c4325;line-height:1.3;font-variant-numeric:tabular-nums}
+.game-layout{background:transparent;border:0;box-shadow:none;padding:0;gap:10px}.sidebox{background:linear-gradient(145deg,#f5e8d1,#e6cba1);border:1px solid #c39a67;padding:12px}
+.board-wrap{background:linear-gradient(135deg,#e7c58c,#684329,#e7c58c);box-shadow:0 14px 34px #160d07aa;padding:6px}
+.board{border-color:#4d2d1b}.sq.light{background:#f0d9ac}.sq.dark{background:#855536}.sq.selected{box-shadow:inset 0 0 0 4px #6c827f}.sq.target:after,.sq.capture:after{background:#55766bcc;border-color:#55766bcc}
+.whitepiece{color:#fff0d0;text-shadow:0 2px 1px #70482d,1px 3px 5px #24150c,-1px -1px 1px #70482d}.blackpiece{color:#342318;text-shadow:0 1px 0 #e5c58e,0 3px 5px #0008}
+.status{background:#e2cfad;color:#543820;border-right:4px solid #b47b3d}.turn-info{font-size:12px;color:#755b40;margin:8px 2px}
+.player-strip{background:#5a3a25;color:#f7e4c1;box-shadow:0 5px 14px #38200f22}.player-strip small{color:#e3cba5}.player-strip.active-player{outline:3px solid #d4a65f}
+body.local-mode{background:radial-gradient(ellipse at 50% -20%,#94704b 0%,#49301f 42%,#21160f 82%);color:#f7ead2}body.local-mode:after{display:none}body.local-mode header{background:#2b1b11ed;border-bottom:1px solid #d5a45e88}body.local-mode header h1{color:#f0d39a}body.local-mode header small{color:#d8c09d}body.local-mode .panel,body.local-mode .sidebox{background:linear-gradient(145deg,#f5e9d3,#e7d0aa);border:1px solid #c69a60;color:#332419;box-shadow:0 18px 48px #10090466}body.local-mode h2{color:#69452c}body.local-mode p,body.local-mode .muted{color:#6d5742}body.local-mode .board-wrap{background:linear-gradient(135deg,#e7c58c,#684329,#e7c58c);box-shadow:0 14px 34px #160d07aa}body.local-mode .status{background:#e2cfad;color:#543820;border-right-color:#b47b3d}body.local-mode .sq.light{background:#f0d9ac}body.local-mode .sq.dark{background:#855536}body.local-mode .player-strip{background:#5a3a25;color:#f7e4c1}body.local-mode .player-strip small{color:#e3cba5}
+body.theme-beach,body.theme-dark{background:radial-gradient(ellipse at 50% -20%,#94704b 0%,#49301f 42%,#21160f 82%)}
+body.theme-beach .panel,body.theme-dark .panel,body.theme-beach .sidebox,body.theme-dark .sidebox{background:linear-gradient(145deg,#f5e9d3,#e7d0aa);color:#332419}
+body.board-wood{--board-light:#f0d9ac;--board-dark:#855536}body.board-ocean{--board-light:#e4d3b1;--board-dark:#77868a}
+@media(min-width:650px){.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.menu-card{text-align:right;padding:14px 16px}.menu-card .ico{display:block;font-size:30px}.menu-card h2{margin:0 0 2px}.game-layout{grid-template-columns:minmax(0,1.5fr) minmax(190px,.55fr)}}
+@media(max-width:360px){.menu-grid{margin-inline:12px}.menu-card{grid-template-columns:40px 1fr 16px;padding:11px}.hero-shade{padding:20px}}
+
 </style>
 </head>
 <body>
 <header><div><h1>♟ شطرنج‌یار</h1><small>بازی کن، یاد بگیر، قوی‌تر شو</small></div><button class="btn secondary" onclick="show('home')">صفحه اصلی</button></header>
 <main>
-<section id="home" class="screen active panel">
- <h2>به دنیای شطرنج خوش آمدی!</h2><p>یک رنگ انتخاب کن، با ربات بازی کن یا قدم‌به‌قدم حرکت مهره‌ها را یاد بگیر.</p>
+<section id="home" class="screen active menu-screen">
+ <div class="menu-hero"><div class="hero-shade"><span class="hero-kicker">SHATRANJ-YAR</span><h2>شطرنج‌یار</h2><p>یک حرکت تا یک تجربه تازه</p></div></div>
+ <div class="menu-intro"><h2>شروع بازی</h2><p>دوست داری با دوستت بازی کنی یا با ربات؟</p></div>
  <div class="menu-grid">
-  <div class="menu-card" onclick="show('color')"><div class="ico">🤖♟</div><h2>بازی با ربات</h2><p>با مهره‌های سفید یا سیاه بازی کن.</p></div>
-  <div class="menu-card" onclick="show('lessons')"><div class="ico">📚</div><h2>آموزش شطرنج</h2><p>حرکت و قدرت تمام مهره‌ها را یاد بگیر.</p></div>
-  <div class="menu-card" onclick="show('pieces')"><div class="ico">♜♞</div><h2>راهنمای مهره‌ها</h2><p>نشانه و روش حرکت هر مهره را ببین.</p></div>
+  <div class="menu-card featured" onclick="show('friendSetup')"><div class="ico">♟♟</div><div><h2>بازی دونفره</h2><p>دو نفر، یک گوشی، روبه‌روی هم</p></div><span class="card-arrow">←</span></div>
+  <div class="menu-card" onclick="show('color')"><div class="ico">♞</div><div><h2>بازی با ربات</h2><p>یک رنگ انتخاب کن و شروع کن</p></div><span class="card-arrow">←</span></div>
+  <div class="menu-card" onclick="openSettings()"><div class="ico">⚙</div><div><h2>تنظیمات</h2><p>صدا و راهنمای حرکت</p></div><span class="card-arrow">←</span></div>
+  <div class="menu-card" onclick="show('lessons')"><div class="ico">♜</div><div><h2>آموزش شطرنج</h2><p>یادگیری حرکت مهره‌ها</p></div><span class="card-arrow">←</span></div>
+  <div class="menu-card" onclick="show('pieces')"><div class="ico">♛</div><div><h2>راهنمای مهره‌ها</h2><p>آشنایی با مهره‌های شطرنج</p></div><span class="card-arrow">←</span></div>
  </div>
+</section>
+<section id="friendSetup" class="screen panel"><h2>بازی با دوستان</h2><p>گوشی را بین دو نفر بگذارید؛ یک نفر سمت بالای صفحه و نفر دیگر پایین صفحه می‌نشیند.</p><div class="choice"><button onclick="startLocalGame()">👬 شروع بازی دو نفره<br><small>روی یک گوشی</small></button><button onclick="show('home')">↩ بازگشت<br><small>صفحه اصلی</small></button></div><p class="muted">نوبت‌ها به‌ترتیب عوض می‌شوند و صفحه با بازیکنِ نوبت‌دار می‌چرخد تا هر نفر از سمت خودش بازی کند.</p></section>
+<section id="settings" class="screen panel"><div class="topline"><h2>⚙️ تنظیمات بازی</h2><button class="btn secondary" onclick="show('home')">بازگشت</button></div>
+ <div class="setting-row"><div><b>🎨 تم صفحه</b><small>ظاهر کلی شطرنج‌یار</small></div><select id="themeSetting" onchange="applySettings()"><option value="samurai">چوبی و طلایی</option><option value="beach">ساحلی</option><option value="dark">تیره</option></select></div>
+ <div class="setting-row"><div><b>🟫 رنگ صفحه شطرنج</b><small>رنگ خانه‌های روشن و تیره</small></div><select id="boardSetting" onchange="applySettings()"><option value="classic">کرم و زرشکی</option><option value="wood">چوبی</option><option value="ocean">آبی دریا</option></select></div>
+ <div class="setting-row"><div><b>🔊 صدای حرکت مهره‌ها</b><small>هنگام حرکت صدای کوتاه پخش شود</small></div><input id="soundSetting" type="checkbox" onchange="applySettings()"></div>
+ <div class="setting-row"><div><b>✨ نمایش حرکت‌های مجاز</b><small>خانه‌هایی که مهره می‌تواند برود مشخص شوند</small></div><input id="hintsSetting" type="checkbox" checked onchange="applySettings()"></div>
+ <div class="setting-row"><div><b>✋ سرعت حرکت دست</b><small>سرعت انیمیشن دست در بازی دونفره</small></div><select id="handSetting" onchange="applySettings()"><option value="fast">سریع</option><option value="normal" selected>معمولی</option><option value="slow">آرام</option></select></div>
+ <div class="setting-actions"><button class="btn" onclick="applySettings(true)">ذخیره تنظیمات</button><button class="btn secondary" onclick="resetSettings()">بازگشت به پیش‌فرض</button></div><p id="settingsSaved" class="muted" aria-live="polite">تنظیمات روی همین دستگاه ذخیره می‌شوند.</p>
 </section>
 <section id="color" class="screen panel"><h2>با کدام ادمک بازی می‌کنی؟</h2><p>رنگ مهره‌های خودت را انتخاب کن:</p><div class="choice"><button onclick="startGame('w')">♔ سفید<br><small>شروع‌کننده بازی</small></button><button onclick="startGame('b')">♚ سیاه<br><small>ربات اول بازی می‌کند</small></button></div><button class="btn secondary" onclick="show('home')">بازگشت</button></section>
 <section id="game" class="screen">
- <div class="topline"><h2>بازی با ربات</h2><div><button class="btn secondary" onclick="resetGame()">شروع دوباره</button> <button class="btn secondary" onclick="show('home')">منو</button></div></div>
- <div class="panel game-stats">
-  <div><div class="muted">مهره‌های گرفته‌شده سفید</div><div id="capturedWhite" style="font-size:25px;min-height:36px">—</div></div>
-  <div><div class="muted">زمان بازی</div><div id="clock" style="font-size:27px;font-weight:800;color:var(--gold)">05:00</div></div>
-  <div><div class="muted">مهره‌های گرفته‌شده سیاه</div><div id="capturedBlack" style="font-size:25px;min-height:36px">—</div></div>
- </div>
- <div class="panel game-layout"><div class="board-wrap"><div id="board" class="board"></div></div><aside class="sidebox"><div id="status" class="status">نوبت سفید</div><p id="turninfo">تو: سفید</p><p class="muted">روی مهره خودت بزن، سپس خانه مقصد را انتخاب کن.</p><div class="piece-guide" id="miniGuide"></div><p class="muted">حرکت‌ها در این صفحه نمایش داده نمی‌شوند.</p></aside></div>
+ <div class="topline"><h2 id="gameTitle">بازی با ربات</h2><div><button class="btn secondary" onclick="resetGame()">شروع دوباره</button> <button class="btn secondary" onclick="show('home')">منو</button></div></div>
+ <div class="panel game-stats"><div class="timer-label">زمان باقی‌مانده</div><div id="clock" aria-live="off">05:00</div></div>
+ <div id="blackPlayer" class="player-strip" style="display:none"><span><b>بازیکن سیاه</b><small>سمت بالای گوشی</small></span><span class="avatar">♚</span></div><div class="local-hint" id="localHint" style="display:none">نوبت سفید</div><div class="panel game-layout"><div class="board-wrap"><div id="board" class="board"></div><div id="handCursor" class="hand-cursor">✋</div></div><aside class="sidebox"><div id="whitePlayer" class="player-strip" style="display:none"><span><b>بازیکن سفید</b><small>سمت پایین گوشی</small></span><span class="avatar">♔</span></div><div id="status" class="status">نوبت سفید</div><p id="turninfo" class="turn-info">روی مهره خودت بزن، سپس خانه مقصد را انتخاب کن.</p></aside></div>
 </section>
 <section id="lessons" class="screen panel"><div class="topline"><h2>آموزش شطرنج</h2><button class="btn secondary" onclick="show('home')">بازگشت</button></div><p>در شطرنج هر بازیکن ۱۶ مهره دارد. هدف، مات کردن شاه حریف است.</p><ol class="lesson-list"><li><b>پیاده ♟:</b> یک خانه رو به جلو می‌رود؛ در حرکت اول می‌تواند دو خانه برود و مهره حریف را مورب می‌زند.</li><li><b>رخ ♜:</b> مستقیم، افقی یا عمودی حرکت می‌کند.</li><li><b>فیل ♝:</b> فقط مورب حرکت می‌کند.</li><li><b>اسب ♞:</b> به شکل حرف L حرکت می‌کند و از روی مهره‌ها می‌پرد.</li><li><b>وزیر ♛:</b> مستقیم و مورب حرکت می‌کند؛ قوی‌ترین مهره است.</li><li><b>شاه ♚:</b> یک خانه در هر جهت حرکت می‌کند؛ باید از کیش و مات دور بماند.</li></ol><p class="hint">نکته: سفید همیشه اولین حرکت را انجام می‌دهد.</p></section>
 <section id="pieces" class="screen panel"><div class="topline"><h2>نشانه‌های مهره‌ها</h2><button class="btn secondary" onclick="show('home')">بازگشت</button></div><div class="piece-guide" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))"><div><b>♔ ♚</b> شاه — حرکت یک خانه</div><div><b>♕ ♛</b> وزیر — همه جهت‌ها</div><div><b>♖ ♜</b> رخ — افقی و عمودی</div><div><b>♗ ♝</b> فیل — مورب</div><div><b>♘ ♞</b> اسب — حرکت L شکل</div><div><b>♙ ♟</b> پیاده — رو به جلو</div></div><p>مهره‌های روشن برای سفید و مهره‌های تیره برای سیاه هستند. در صفحه بازی، نشانه تمام مهره‌ها همیشه دیده می‌شود.</p></section>
@@ -90,9 +160,18 @@ p{color:#e0d5d0;line-height:1.85;font-size:14px;margin:9px 0}
 <script>
 const glyph={wk:'♔',wq:'♕',wr:'♖',wb:'♗',wn:'♘',wp:'♙',bk:'♚',bq:'♛',br:'♜',bb:'♝',bn:'♞',bp:'♟'};
 const names={k:'شاه',q:'وزیر',r:'رخ',b:'فیل',n:'اسب',p:'پیاده'};
-let game=null,human='w',selected=null,legalTargets=[];
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');if(id!=='game')clearInterval(clockInterval)}
+let game=null,human='w',selected=null,legalTargets=[],localTwoPlayer=false;
+const defaultSettings={theme:'samurai',board:'wood',sound:false,hints:true,hand:'normal',time:300};
+let gameSettings={...defaultSettings};
+function openSettings(){const s=loadSettings();document.getElementById('themeSetting').value=s.theme;document.getElementById('boardSetting').value=s.board;document.getElementById('soundSetting').checked=s.sound;document.getElementById('hintsSetting').checked=s.hints;document.getElementById('handSetting').value=s.hand;show('settings')}
+function loadSettings(){try{gameSettings={...defaultSettings,...JSON.parse(localStorage.getItem('shatranjSettings')||'{}')}}catch(e){gameSettings={...defaultSettings}}return gameSettings}
+function applySettings(showMessage=false){gameSettings={theme:document.getElementById('themeSetting').value,board:document.getElementById('boardSetting').value,sound:document.getElementById('soundSetting').checked,hints:document.getElementById('hintsSetting').checked,hand:document.getElementById('handSetting').value,time:300};try{localStorage.setItem('shatranjSettings',JSON.stringify(gameSettings))}catch(e){};document.body.classList.remove('theme-beach','theme-dark','board-wood','board-ocean');if(gameSettings.theme==='beach')document.body.classList.add('theme-beach');if(gameSettings.theme==='dark')document.body.classList.add('theme-dark');if(gameSettings.board==='wood')document.body.classList.add('board-wood');if(gameSettings.board==='ocean')document.body.classList.add('board-ocean');document.documentElement.style.setProperty('--hand-speed',gameSettings.hand==='fast'?'.16s':gameSettings.hand==='slow'?'.55s':'.32s');if(showMessage)document.getElementById('settingsSaved').textContent='✓ تنظیمات ذخیره شد!';if(game&&document.getElementById('game').classList.contains('active'))render()}
+function resetSettings(){gameSettings={...defaultSettings};try{localStorage.removeItem('shatranjSettings')}catch(e){};openSettings();applySettings(true);document.getElementById('settingsSaved').textContent='تنظیمات به حالت پیش‌فرض برگشت.'}
+function playMoveSound(){if(!gameSettings.sound)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=520;g.gain.setValueAtTime(.045,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.09);o.start();o.stop(c.currentTime+.1);o.onended=()=>c.close()}catch(e){}}
 
+function show(id){document.body.classList.toggle('local-mode',id==='game'&&localTwoPlayer);document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');if(id!=='game')clearInterval(clockInterval)}
+loadSettings();
+if(document.getElementById('themeSetting')){document.getElementById('themeSetting').value=gameSettings.theme;document.getElementById('boardSetting').value=gameSettings.board;document.getElementById('soundSetting').checked=gameSettings.sound;document.getElementById('hintsSetting').checked=gameSettings.hints;document.getElementById('handSetting').value=gameSettings.hand;applySettings();}
 let clockInterval=null,remaining=300,clockStarted=false;
 function drawClock(){
  const el=document.getElementById('clock');if(!el)return;
@@ -100,28 +179,30 @@ function drawClock(){
  el.textContent=mm+':'+ss;
 }
 function startClock(){
- clearInterval(clockInterval);remaining=300;clockStarted=true;drawClock();
+ clearInterval(clockInterval);loadSettings();remaining=300;clockStarted=true;drawClock();
  clockInterval=setInterval(()=>{
   if(!game||game.game_over()){clearInterval(clockInterval);return;}
   remaining=Math.max(0,remaining-1);drawClock();
   if(remaining===0){clearInterval(clockInterval);document.getElementById('status').textContent='⏰ زمان ۵ دقیقه‌ای تمام شد!';game=null;}
  },1000);
 }
-function startGame(color){if(typeof Chess==='undefined'){alert('موتور شطرنج هنوز بارگذاری نشده؛ چند ثانیه صبر کن و دوباره بزن.');return;}human=color;robotThinking=false;game=new Chess();selected=null;startClock();show('game');document.getElementById('turninfo').textContent='تو: '+(human==='w'?'سفید':'سیاه');render();if(human==='b')setTimeout(robotMove,450)}
+function startGame(color){localTwoPlayer=false;document.getElementById('blackPlayer').style.display='none';document.getElementById('whitePlayer').style.display='none';document.getElementById('localHint').style.display='none';document.getElementById('handCursor').style.display='none';document.getElementById('gameTitle').textContent='بازی با ربات';if(typeof Chess==='undefined'){alert('موتور شطرنج هنوز بارگذاری نشده؛ چند ثانیه صبر کن و دوباره بزن.');return;}human=color;robotThinking=false;game=new Chess();selected=null;startClock();show('game');document.getElementById('turninfo').textContent='تو: '+(human==='w'?'سفید':'سیاه');render();if(human==='b')setTimeout(robotMove,450)}
+function startLocalGame(){
+ if(typeof Chess==='undefined'){alert('موتور شطرنج هنوز بارگذاری نشده؛ چند ثانیه صبر کن و دوباره بزن.');return;}
+ localTwoPlayer=true;human='w';robotThinking=false;game=new Chess();selected=null;legalTargets=[];startClock();show('game');
+ document.getElementById('gameTitle').textContent='بازی با دوستان';document.getElementById('turninfo').textContent='دو بازیکن — یک گوشی';
+ document.getElementById('blackPlayer').style.display='flex';document.getElementById('whitePlayer').style.display='flex';document.getElementById('localHint').style.display='block';document.getElementById('handCursor').style.display='block';render();
+}
 function resetGame(){if(!game)return;robotThinking=false;game=new Chess();selected=null;startClock();render();if(human==='b')setTimeout(robotMove,450)}
 function render(){
- const board=document.getElementById('board');board.innerHTML='';const rows=human==='w'?'abcdefgh':'hgfedcba';const ranks=human==='w'?'87654321':'12345678';const targets=legalTargets;
+ const board=document.getElementById('board');board.innerHTML='';const viewColor=localTwoPlayer?game.turn():human;const rows=viewColor==='w'?'abcdefgh':'hgfedcba';const ranks=viewColor==='w'?'87654321':'12345678';const targets=legalTargets;board.style.transform='none';
  for(let ri=0;ri<8;ri++)for(let fi=0;fi<8;fi++){let sq=rows[fi]+ranks[ri],piece=game.get(sq),el=document.createElement('div');el.className='sq '+(((ri+fi)%2===0)?'light':'dark');if(selected===sq)el.classList.add('selected');if(targets.includes(sq))el.classList.add(piece?'capture':'target');if(piece){el.textContent=glyph[piece.color+piece.type];el.classList.add(piece.color==='w'?'whitepiece':'blackpiece');el.title=names[piece.type]+' '+(piece.color==='w'?'سفید':'سیاه')}el.onclick=()=>tap(sq);board.appendChild(el)}
  document.getElementById('status').textContent=game.in_checkmate()?'کیش و مات! '+(game.turn()==='w'?'سیاه':'سفید')+' برنده شد.':game.in_draw()?'بازی مساوی شد.':(game.turn()==='w'?'نوبت سفید':'نوبت سیاه')+(game.in_check()?' — کیش!':'');
- const hist=game.history({verbose:true});
- const takenByWhite=[],takenByBlack=[];
- hist.forEach(m=>{if(m.captured){const capturer=m.color;const sym=glyph[(capturer==='w'?'b':'w')+m.captured];(capturer==='w'?takenByWhite:takenByBlack).push(sym);}});
- document.getElementById('capturedWhite').textContent=takenByWhite.join(' ')||'—';
- document.getElementById('capturedBlack').textContent=takenByBlack.join(' ')||'—';
- document.getElementById('miniGuide').innerHTML=Object.keys(names).map(k=>'<div><b>'+glyph['w'+k]+' '+glyph['b'+k]+'</b>'+names[k]+'</div>').join('');
+ if(localTwoPlayer){const turnName=game.turn()==='w'?'سفید':'سیاه';document.getElementById('localHint').textContent=game.game_over()?'بازی به پایان رسید':('نوبت بازیکن '+turnName+' — از سمت خودش حرکت بدهد');document.getElementById('blackPlayer').classList.toggle('active-player',game.turn()==='b'&&!game.game_over());document.getElementById('whitePlayer').classList.toggle('active-player',game.turn()==='w'&&!game.game_over());}
 }
-function tap(sq){if(!game||game.game_over()||game.turn()!==human||robotThinking)return;let p=game.get(sq);if(selected){let m=game.move({from:selected,to:sq,promotion:'q'});if(m){selected=null;legalTargets=[];render();if(!game.game_over())setTimeout(robotMove,450);return}}
- if(p&&p.color===human){selected=sq;legalTargets=game.moves({square:sq,verbose:true}).map(m=>m.to)}else{selected=null;legalTargets=[]}render()}
+function animateHand(fromSq,toSq,mover){const hand=document.getElementById('handCursor');if(!localTwoPlayer||!hand)return;const findCenter=(sq)=>{const rows=mover==='b'?'hgfedcba':'abcdefgh',ranks=mover==='b'?'12345678':'87654321';const f=rows.indexOf(sq[0]),r=ranks.indexOf(sq[1]);const el=document.getElementById('board').children[r*8+f];return el?{x:el.offsetLeft+el.offsetWidth/2,y:el.offsetTop+el.offsetHeight/2}:null};const a=findCenter(fromSq),b=findCenter(toSq);if(!a||!b)return;hand.textContent=mover==='w'?'✋':'🤚';hand.style.left=a.x+'px';hand.style.top=(mover==='w'?a.y+22:a.y-22)+'px';hand.classList.add('show','grab');setTimeout(()=>{hand.style.left=b.x+'px';hand.style.top=(mover==='w'?b.y+22:b.y-22)+'px';},170);setTimeout(()=>hand.classList.remove('show','grab'),560);}
+function tap(sq){if(!game||game.game_over()||(!localTwoPlayer&&game.turn()!==human)||robotThinking)return;let p=game.get(sq);if(selected){const from=selected,mover=game.turn();let m=game.move({from:selected,to:sq,promotion:'q'});if(m){playMoveSound();if(localTwoPlayer)animateHand(from,sq,mover);selected=null;legalTargets=[];render();if(!localTwoPlayer&&!game.game_over())setTimeout(robotMove,450);return}}
+ const canSelect=p&&p.color===(localTwoPlayer?game.turn():human);if(canSelect){selected=sq;legalTargets=gameSettings.hints?game.moves({square:sq,verbose:true}).map(m=>m.to):[]}else{selected=null;legalTargets=[]}render()}
 let robotThinking=false;
 function robotMove(){
  if(!game || game.game_over() || game.turn()===human || robotThinking) return;
